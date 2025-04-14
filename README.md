@@ -1,4 +1,4 @@
-# hello-world
+# convert-currency
 
 ## Project setup
 ```

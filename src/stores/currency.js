@@ -10,11 +10,19 @@ export const useCurrencyStore = defineStore('currency', () => {
     try {
       const response = await fetch('https://status.neuralgeneration.com/api/currency');
       const data = await response.json();
-      rates.value = data;
+
+      const structuredRates = {};
+
+      for (const pair in data) {
+        const [from, to] = pair.toUpperCase().split('-');
+        if (!structuredRates[from]) structuredRates[from] = {};
+        structuredRates[from][to] = data[pair];
+      }
+
+      rates.value = structuredRates;
+
     } catch (error) {
       console.error('Ошибка загрузки курсов:', error);
-      // Заглушка на случай недоступности API
-      rates.value = { USD: 1, EUR: 0.85, RUB: 91.45 };
     }
   };
 

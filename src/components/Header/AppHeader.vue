@@ -13,7 +13,7 @@
 </template>
 
 <script setup>
-import { useCurrencyStore } from '../stores/currency';
+import { useCurrencyStore } from '../../stores/currency.js';
 
 const store = useCurrencyStore();
 const { baseCurrency, currencies } = store;
