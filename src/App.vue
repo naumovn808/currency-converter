@@ -1,26 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <Header />
+  <router-view />
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script setup>
+import Header from './components/Header/Header.vue';
+import { useCurrencyStore } from './stores/currency';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+const store = useCurrencyStore();
+store.fetchRates();
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+body { font-family: Arial, sans-serif; }
 </style>
