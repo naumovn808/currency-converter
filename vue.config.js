@@ -1,8 +1,9 @@
-const { defineConfig } = require('@vue/cli-service')
-const webpack = require('webpack')
+const { defineConfig } = require('@vue/cli-service');
+const webpack = require('webpack');
 
 module.exports = defineConfig({
   transpileDependencies: true,
+  publicPath: '/currency-converter/',
   configureWebpack: {
     plugins: [
       new webpack.DefinePlugin({
@@ -10,4 +11,4 @@ module.exports = defineConfig({
       }),
     ],
   },
-})
+});

@@ -10,7 +10,10 @@ const pinia = createPinia();
 app.use(pinia);
 app.use(router);
 
-const store = useCurrencyStore();
-await store.fetchRates(); 
+const initApp = async () => {
+    const store = useCurrencyStore();
+    await store.fetchRates();
+    app.mount('#app');
+};
 
-app.mount('#app');
+initApp();

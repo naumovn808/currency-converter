@@ -13,24 +13,15 @@
     </header>
 
     <router-view />
-
   </div>
 </template>
 
 <script setup>
-import { onMounted } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useCurrencyStore } from './stores/currency.js';
 
 const store = useCurrencyStore();
 const { baseCurrency, currencies } = storeToRefs(store);
-
-onMounted(() => {
-  store.fetchRates();
-});
-
-
-
 </script>
 
 <style scoped>

@@ -28,13 +28,12 @@ const { currencies, baseCurrency, rates } = storeToRefs(store);
 
 const selectedCurrencies = ref([
   baseCurrency.value,
-  currencies.value.find(c => c !== baseCurrency.value),
+  currencies.value.find((c) => c !== baseCurrency.value),
 ]);
 
 const inputs = ref(['', '']);
 const errors = ref([false, false]);
 const isUpdating = ref(false);
-
 const sameCurrencyError = ref(false);
 
 const getRate = (from, to) => {
@@ -48,18 +47,27 @@ const getRate = (from, to) => {
 const convert = (fromIndex, toIndex) => {
   const fromCurrency = selectedCurrencies.value[fromIndex];
   const toCurrency = selectedCurrencies.value[toIndex];
-  const amount = parseFloat(inputs.value[fromIndex]);
+  const inputValue = inputs.value[fromIndex];
 
   if (fromCurrency === toCurrency) {
     sameCurrencyError.value = true;
     inputs.value[toIndex] = '';
+    errors.value[fromIndex] = false;
     return;
   } else {
     sameCurrencyError.value = false;
   }
 
-  if (inputs.value[fromIndex] === '' || isNaN(amount)) {
-    errors.value[fromIndex] = false; 
+  if (inputValue === '') {
+    inputs.value[toIndex] = '';
+    errors.value[fromIndex] = false;
+    return;
+  }
+
+  const amount = parseFloat(inputValue);
+  if (isNaN(amount)) {
+    errors.value[fromIndex] = true; 
+    inputs.value[toIndex] = '';
     return;
   }
 
@@ -89,7 +97,7 @@ const onCurrencyChange = () => {
 
 watch(selectedCurrencies, () => {
   convert(0, 1);
-});
+}, { deep: true });
 </script>
 
 <style scoped>
